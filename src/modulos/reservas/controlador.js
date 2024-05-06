@@ -1,4 +1,4 @@
-const TABLA = 'usuario'
+const TABLA = 'reserva'
 
 
 module.exports= function(dbInyectada){
