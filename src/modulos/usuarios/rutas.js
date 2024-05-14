@@ -1,5 +1,6 @@
 const express = require('express')
 
+const seguridad = require('./seguridad')
 const respuesta = require('../../red/respuestas')
 const controlador = require('./index.js');
 //const { actualizar } = require('../../DB/mysql');
@@ -12,10 +13,10 @@ router.get('/', todos)
 router.get('/:id', uno)
 
 //eliminar
-router.put('/',eliminar)
+router.put('/', seguridad(), eliminar)
 
 //actualizar
-router.post('/',actualizar)
+router.post('/',seguridad(), actualizar)
 
 async function todos(req, res, next){
     try {
