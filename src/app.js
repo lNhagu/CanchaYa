@@ -4,8 +4,9 @@ const morgan = require('morgan')
 
 const usuarios = require('./modulos/usuarios/rutas')
 const reservas = require('./modulos/reservas/rutas')
-
+const auth = require('./modulos/auth/rutas')
 const error = require('./red/errors')
+
 
 const app = express()
 
@@ -20,6 +21,7 @@ app.set('port', config.app.port)
 //rutas
 app.use('/api/usuarios', usuarios)
 app.use('/api/reservas', reservas)
+app.use('/api/auth', auth)
 app.use(error)
 
 module.exports = app

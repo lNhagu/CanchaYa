@@ -63,39 +63,15 @@ function uno(tabla, id){
 }
 
 //insertar
-function insertar(tabla, data){
+function actualizar(tabla, data){
     return new Promise((resolve, reject) => {
-        conexion.query(`INSERT INTO ${tabla} SET ?`, data, (err, result) => {
-            if(err){
-                return reject(err)
-            }
-            else{
-                return resolve(result)
-            }
+        conexion.query(`INSERT INTO ${tabla} SET ? ON DUPLICATE KEY UPDATE ?`, [data,data], (err, result) => {
+            return err ? reject(err) : resolve(result)
         })
     })
 }
 
-//actualiza
-function editar(tabla, data){
-    return new Promise((resolve, reject) => {
-        conexion.query(`UPDATE ${tabla} SET ? WHERE id = ?`, [data, data.id], (err, result) => {
-            if(err){
-                return reject(err)
-            }
-            else{
-                return resolve(result)
-            }
-        })
-    })
-}
-function actualizar(tabla, data){
-    if (data && data.id == 0){
-        return insertar(tabla, data)
-    }else{
-        return editar(tabla, data)
-    }
-}
+
 
 function eliminar(tabla, data){
     return new Promise((resolve, reject) => {
@@ -110,9 +86,23 @@ function eliminar(tabla, data){
     })
 }
 
+function query(tabla, consulta){
+    return new Promise((resolve, reject) => {
+        conexion.query(`SELECT * FROM ${tabla} WHERE ?`, consulta, (err, result) => {
+            if(err){
+                return reject(err)
+            }
+            else{
+                return resolve(result[0])
+            }
+        })
+    })
+}
+
 module.exports = {
     uno,
     actualizar,
     eliminar,
-    todos
+    todos,
+    query,
 }
