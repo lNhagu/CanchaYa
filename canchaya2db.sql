@@ -11,11 +11,29 @@
  Target Server Version : 80034 (8.0.34)
  File Encoding         : 65001
 
- Date: 07/05/2024 18:29:19
+ Date: 14/05/2024 19:17:00
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for auth
+-- ----------------------------
+DROP TABLE IF EXISTS `auth`;
+CREATE TABLE `auth`  (
+  `id` int NOT NULL,
+  `nombreUsuario` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `pass` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of auth
+-- ----------------------------
+INSERT INTO `auth` VALUES (1, 'admin', 'admin');
+INSERT INTO `auth` VALUES (27, 'fulano123', '$2b$05$nsRWzBALYZ0B7U0O5tElFOM93JKyYG4jPydmeTmnBa8ZE6HqO0FG.');
+INSERT INTO `auth` VALUES (28, 'santiago123', '$2b$05$GQZwS0SLBeEB7laXJnj2leIWLDWKGO9nWdQ7oNLqzuLTLy/aMIPkK');
 
 -- ----------------------------
 -- Table structure for cancha
@@ -60,7 +78,7 @@ CREATE TABLE `pago`  (
 -- ----------------------------
 -- Records of pago
 -- ----------------------------
-INSERT INTO `pago` VALUES (5, 1000, '123456', 2, 3, 'l');
+INSERT INTO `pago` VALUES (5, 1000, '123456', 2, 1, 'l');
 
 -- ----------------------------
 -- Table structure for reserva
@@ -85,7 +103,7 @@ CREATE TABLE `reserva`  (
 -- ----------------------------
 -- Records of reserva
 -- ----------------------------
-INSERT INTO `reserva` VALUES (2, '2024-05-06', '17:00', '18:00', 1, 1, 3, 1);
+INSERT INTO `reserva` VALUES (2, '2024-05-06', '17:00', '18:00', 1, 1, 1, 1);
 
 -- ----------------------------
 -- Table structure for telefono
@@ -112,23 +130,19 @@ CREATE TABLE `usuario`  (
   `id` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `apellido` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `usuario` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `contraseña` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `email` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '',
   `tipo` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT 'u',
   `estado` tinyint(1) NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`) USING BTREE,
   CONSTRAINT `usuario_chk_1` CHECK (`tipo` in (_utf8mb4'a',_utf8mb4'u',_utf8mb4's')),
   CONSTRAINT `usuario_chk_2` CHECK (`estado` in (1,0))
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of usuario
 -- ----------------------------
-INSERT INTO `usuario` VALUES (1, 'Mariano', 'Leturia', 'admin', 'admin', 'admin@admin.com', 'a', 0);
-INSERT INTO `usuario` VALUES (2, 'user1', 'user1', 'user1', 'user1', 'user1@user1.com', 'u', 0);
-INSERT INTO `usuario` VALUES (3, 'user2', 'user2', 'user2', 'user2', 'user2@user2.com', 'u', 0);
-INSERT INTO `usuario` VALUES (4, 'user4', 'user4 apellido', 'user4', 'user4', 'user4@user4.com', 'u', 0);
+INSERT INTO `usuario` VALUES (1, 'Mariano', 'Leturia', 'a', 1);
+INSERT INTO `usuario` VALUES (27, 'fulanito', 'fulanin', 'u', 1);
+INSERT INTO `usuario` VALUES (28, 'santiago', 'arango', 'u', 1);
 
 -- ----------------------------
 -- View structure for canchas_disponibles
