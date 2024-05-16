@@ -13,10 +13,10 @@ router.get('/', todos)
 router.get('/:id', uno)
 
 //eliminar
-router.put('/', seguridad(), eliminar)
+router.put('/', eliminar) //seguridad()
 
 //actualizar
-router.post('/', seguridad(),actualizar)
+router.post('/',actualizar)
 
 async function todos(req, res, next){
     try {
