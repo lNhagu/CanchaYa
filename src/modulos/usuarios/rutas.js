@@ -16,7 +16,7 @@ router.get('/:id', uno)
 router.put('/', seguridad(), eliminar)
 
 //actualizar
-router.post('/',seguridad(), actualizar)
+router.post('/', seguridad(),actualizar)
 
 async function todos(req, res, next){
     try {

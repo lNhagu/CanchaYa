@@ -12,11 +12,11 @@ function verificarToken(token) {
 }
 
 const chequearToken = {
-    confirmarToken: function(req){
+    confirmarToken: function(req, id){
         const decodificado = decodificarCabecera(req)
-        // if (decodificado !== id){
-        //     throw new Error('No tienes permisos')
-        // }
+        if (decodificado !== id){
+            throw new Error('No tienes permisos')
+        }
     }
 }
 
@@ -24,7 +24,7 @@ function obtenerToken(autorizacion){
     if (!autorizacion){
         throw new Error('No viene token')
     }
-    if (autorizacion.indexOf('Bearer ') === -1){
+    if (autorizacion.indexOf('Bearer') === -1){
         throw new Error('Formato invalido')
     }
     let token = autorizacion.replace('Bearer ', '')
@@ -42,6 +42,5 @@ function decodificarCabecera(req){
 }
 module.exports = {
     asignarToken,
-    verificarToken,
-    chequearToken,
+    chequearToken
 }
